@@ -259,12 +259,12 @@ if(find(waif.complex_mark,x)!=-1){//комплексные услуги
  str+='<div><input type="checkbox" id="comp_cheak_0" class="cheak_box_form">питание</div>'; 
  str+='<div><input type="checkbox" id="comp_cheak_1" class="cheak_box_form">выдача одежды</div>'; 
  str+='<div><input type="checkbox" id="comp_cheak_2" class="cheak_box_form">жилье</div>'; 
- str+='<div><input type="checkbox" id="comp_cheak_3" class="cheak_box_form">оброзование</div>';
+ str+='<div><input type="checkbox" id="comp_cheak_3" class="cheak_box_form">образование</div>';
  str+='<div><input type="checkbox" id="comp_cheak_4" class="cheak_box_form">трудоустройство</div>';   
  str+='<div><input type="checkbox" id="comp_cheak_6" class="cheak_box_form">сан. обработка</div>';
  str+='<div><input type="checkbox" id="comp_cheak_7" class="cheak_box_form">возвращение домой</div>';
  str+='<div><input type="checkbox" id="comp_cheak_8" class="cheak_box_form">консультация</div>';
- str+='<div><input type="checkbox" id="comp_cheak_9" class="cheak_box_form">востоновление док.</div>';
+ str+='<div><input type="checkbox" id="comp_cheak_9" class="cheak_box_form">восстановление док-в</div>';
  str+='<div><input type="checkbox" id="comp_cheak_10" class="cheak_box_form">помощь людям с ВИЧ</div>';
  str+='<div><input type="checkbox" id="comp_cheak_11" class="cheak_box_form">кризисный центр для женщин</div>';
  str+='<div><input type="checkbox" id="comp_cheak_12" class="cheak_box_form">доступ к интернету</div>'; 
