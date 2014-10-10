@@ -1,0 +1,346 @@
+ 
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>Примеры. Удаление карты с веб-страницы.</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link href="css/index_client.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/popup.css" media="all" rel="stylesheet" type="text/css"/> 
+  
+  <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"> </script>
+  <script src="js/jquery.js" type="text/javascript"> </script>
+  <script src="js/jquery-ui.min.js" type="text/javascript"> </script>
+ 
+  <script src="js/region_list.js" type="text/javascript"> </script>
+ 
+   <script src="js_user/user.js" type="text/javascript"> </script>
+ 
+ 
+  <script src="js/return_m.js" type="text/javascript"> </script>
+   <script src="js/jquery.wookmark.js" type="text/javascript"> </script>
+
+  <script src="js/jquery.popup.min.js" type="text/javascript"> </script>  
+<style type="text/css">
+body{
+overflow: hidden;
+
+}
+
+.sh {
+ 
+    font-size: 14px;
+ 
+    color: #00AEFF;
+ 
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+var popup = new $.Popup();
+ 
+
+
+
+var d = function(x){return document.getElementById(x);}//для меня
+ 
+var waif = new Object; // супер глобальный концентратор всего  
+waif.region = "Москва"; //активный регион, изменяется при drag карты
+waif.mark = new Array(); // массив со всеми метками карты
+//icons иконки для меток
+waif.icons = new Array("img/food.png","img/shirt.png","img/sleep.png","img/gov.png","img/money.png","img/taxi.png","img/sanobrab.png","img/backhome.png","img/consult.png","img/doc.png","img/hiv.png","img/woman.png","img/inet.png","img/all.png");
+waif.icons_bal = new Array("img/food_spec.png","img/shirt_spec.png","img/sleep_spec.png","img/gov_spec.png","img/money_spec.png","img/taxi_spec.png","img/sanobrab_spec.png","img/backhome_spec.png","img/consult_spec.png","img/doc_spec.png","img/hiv_spec.png","img/woman_spec.png","img/inet_spec.png","img/all_spec.png");
+waif.titles = new Array("Питание","Выдача одежды","Жилье","Оброзование","Трудоустройство","Мобильная помощь", "Санитарная обработка","Возвращение домой","Консультация","Востановление документов","Помощь людям с ВИЧ", "Кризисный центр для женщин","Доступ в интернет","Комплексные услуги");
+
+waif.region_load = new Array();// номера регионов уже загруженых меток
+waif.region_ar = JSON.parse(region_list);  // массив с названиями регионов region_list.js
+waif.load_stopper = 0;
+waif.list_box_view_flag = 0; //флаг открытия карточек с метками 1\0
+waif.paid = 1;
+waif.arr_print =0;
+var map; // объект карты яндекс
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+ 
+function create_balloon(el){
+ 
+ var str = "";
+  str+="<img src='"+ waif.icons_bal[el.types[0]] + "' /><br>";
+ str+="<span class='logo_bal'>"+ waif.titles[el.types[0]] + "</span> ";
+ //if(ee==0){ee=1; alert(waif.icons[el.types]);}
+
+if(el.names!="?"){str+="<br><span class='name_bal'>"+ el.names + "</span>";}
+if(el.detail!="?"){str+="<br><span class='detail_bal'>"+ el.detail + "</span>";}
+if(el.times!="?"){str+="<br><span class='sub_label_bal'>Время работы: </span>"+ el.times;} 
+if(el.phone!="?"){str+="<br><span class='sub_label_bal'>Телефон: </span>"+ el.phone;}
+if(el.site!="?"){str+="<br><span class='sub_label_bal'>Сайт: </span>"+ el.site;}
+if(el.e_mail!="?"){str+="<br><span class='sub_label_bal'>Эл. почта: </span>"+ el.e_mail;}
+if(el.adress!="?"){str+="<br><span class='sub_label_bal'>Адрес: </span>"+ el.adress;}
+
+
+//str+='<br><input type="button" value="закрыть" onclick="close_bal()"  />';
+ 
+el.properties.set('balloonContent', str);
+}//end create_balloon
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+ //e.get("target").options.set('visible', false);
+
+waif.filter_box  = new Array("f_1","f_2","f_3","f_4","f_5","f_6","f_7","f_8","f_9","f_10","f_11","f_12","f_13"); // в тойже последовательности что и в select
+
+waif.filter = new Array(); for(var e=0;e<waif.filter_box.length;e++){waif.filter[e]=1;}
+waif.paid = 1;//платные показывать 
+//питание, одежда, жилье
+
+
+function filter_on(x){//event на чекбоксе
+//учитывать платные или нет
+waif.arr_print = new Array();
+if(x=="paid"){
+if(waif.paid==0){waif.paid=1;}else{waif.paid=0;}
+} 
+
+
+
+if(x!=-1){  
+var change_box_index  = find(waif.filter_box,x);
+if(waif.filter[change_box_index]==0){ // поменяем фильтр
+  waif.filter[change_box_index]=1;}else{
+  waif.filter[change_box_index]=0;}
+//отрисуем выбраные метки
+}// для стороннего запуска очистки
+
+for(var i=0;i<waif.mark.length;i++){
+ 
+waif.mark[i].options.set('visible', false);
+ 
+for(var t=0;t<waif.filter.length;t++){
+//все марки сделаем невидимыми
+//а потом если пункт в фильтре совпадает с типом метки сделаем ее видимой
+//для комплексных меток 3 for прогоняет все типы
+  for(var r=0;r<waif.mark[i].types.length;r++){
+
+    if(waif.mark[i].types[r]==t&&waif.filter[t]==1){
+      if(waif.mark[i].p_duty==0||waif.paid==1&&waif.mark[i].p_duty==1){//paid 1 учитывать и платные
+      waif.mark[i].options.set('visible', true);
+         if(waif.region_pair==return_region_pair(waif.mark[i].region)&&
+            return_mark_at_name_spec(waif.mark[i].id,waif.arr_print)==-1){
+
+           waif.arr_print.push(waif.mark[i]);
+         }//region if
+      }//paid if
+    }//if types
+      }//for r
+}//enter for t
+
+
+
+}//for
+
+if(waif.list_box_view_flag==1){build_view_list();}
+ 
+}//filter_on
+
+
+function region_select_control(){ // перемещение к выбраному региону
+
+var myGeocoder = ymaps.geocode(waif.region);
+ 
+myGeocoder.then(
+    function (res) {
+
+       map.setCenter(res.geoObjects.get(0).geometry.getCoordinates());
+    },
+    function (err) {
+        console.error('Ошибка');
+    }
+);
+map.setZoom(7);
+}//end region select control
+
+
+//сортировка по номеру типа types
+function sort_buble(arr){ // сортировка для отображения в списке и при печати
+ var m = arr;
+ var count = m.length-1;
+for (var i = 0; i < count; i++) 
+     for (var j = 0; j < count-i; j++)
+        if (m[j].types> m[j+1].types) {
+           var max = m[j];
+           m[j] = m[j+1];
+           m[j+1] = max;
+        }
+return m ;
+}
+
+
+
+function build_view_list(){//**********************************************************
+sort_buble(waif.arr_print); // отсортируем специаальный массив для печати о отображения
+
+
+var str="<ul id='frog_ul'>";
+for(var i=0; i<waif.arr_print.length;i++){
+ 
+var el = waif.arr_print[i]; 
+str+="<li>";
+str += "<div  class='card_mark'>";
+str+="<img src='"+ waif.icons_bal[el.types[0]] + "' /><br>";
+str+="<span class='logo_bal'>"+ waif.titles[el.types[0]] + "</span> ";
+ //if(ee==0){ee=1; alert(waif.icons[el.types]);}
+
+if(el.names!="?"){str+="<br><span class='name_bal'>"+ el.names + "</span>";}
+if(el.detail!="?"){str+="<br><span class='detail_bal'>"+ el.detail + "</span>";}
+if(el.times!="?"){str+="<br><span class='sub_label_bal'>Время работы: </span>"+ el.times;} 
+if(el.phone!="?"){str+="<br><span class='sub_label_bal'>Телефон: </span>"+ el.phone;}
+if(el.site!="?"){str+="<br><span class='sub_label_bal'>Сайт: </span>"+ el.site;}
+if(el.e_mail!="?"){str+="<br><span class='sub_label_bal'>Эл. почта: </span>"+ el.e_mail;}
+if(el.adress!="?"){str+="<br><span class='sub_label_bal'>Адрес: </span>"+ el.adress;}
+str+="<hr>";
+str+="</div>";
+str+="</li>";
+ 
+}//for
+str+="</ul>";
+//str+='<br><input type="button" value="закрыть" onclick="close_bal()"  />';
+waif.str = str;
+d("view_mark_list").innerHTML=str;
+
+// раскидка карточек рядами
+  $('#frog_ul li').wookmark({
+    autoResize: true, // This will auto-update the layout when the browser window is resized.
+    container: $('#frog_ul'), // Optional, used for some extra CSS styling
+    offset: 12, // Optional, the distance between grid items
+    itemWidth: 250 // Optional, the width of a grid item
+  });
+
+} //build_view_list ******************************************************************
+
+
+function  view_box_control(){
+ 
+if(waif.list_box_view_flag==0){
+
+  waif.list_box_view_flag=1;
+  build_view_list();
+  d("view_mark_list").style.visibility = "visible";
+  d("list_btn").value = "Вернутся на карту";
+}else{
+   region_select_control();
+  waif.list_box_view_flag=0;
+  d("view_mark_list").style.visibility = "hidden";
+
+  d("list_btn").value = "Показать списком";
+}//if 
+
+}//end view_list_mark_box ))))))))))))))))))))))))))))))))
+
+
+ function print_mark(){
+build_view_list();
+ var  str = '<html><head><link href="css/index_client.css" media="all" rel="stylesheet" type="text/css"/></head><body>'+waif.str+'\<script type="text/javascript"> window.print();<\/script></body></html>';
+
+
+var myWindow = open('','mywin');
+myWindow.document.write(str);
+
+ }
+
+$(document).ready(function () {
+waif.h_ = $(window).height();
+waif.w_ = $(window).width(); 
+create_map(); //яндекс карты
+
+ position_normalize(); // нормализуем элементы по высоте и ширине
+
+
+
+
+d("list_region_div").innerHTML= region_select_html_str(); // заполним селект регионами
+document.getElementById("region_list").onchange = function (){
+//при селекте загрузим нужный регион
+
+waif.region =   d("region_list").options[this.selectedIndex].text;
+waif.region_pair =  return_region_pair(waif.region);
+load_control();
+
+if(waif.list_box_view_flag==0){ 
+region_select_control();
+ }
+}//onchange
+
+});
+
+
+
+
+
+
+$(window).resize(function(){
+ position_normalize();
+});
+ 
+
+
+  function position_normalize(){
+waif.h_ = $(window).height();
+waif.w_ = $(window).width(); 
+if(waif.h_<500){
+d("left_menu").style.overflowY = "scroll";
+ 
+}else{
+d("left_menu").style.overflowY = "hidden";
+}//else
+
+  }
+
+// fly-frog-fly@yandex.ru
+</script>
+ 
+<div id="YMapsID"  class="map"  ></div>
+
+<div id="view_mark_list" class="view_mark_list_css"></div>
+
+
+
+<div id="left_menu" class="left_menu_div" > 
+<img   src="img/logo.png" class="logo" />
+ 
+
+<div id="list_region_div"></div> 
+<input type="button"   value="Распечатать" onclick="print_mark()" class="btn"/>
+<input type="button" id="list_btn" value="Показать списком" onclick="view_box_control()" class="btn"/>
+
+<div  class="filter_div">
+<div class="rrr"></div>
+
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_1" class="cheak_box_form" checked><span class="span_ch_filter">питание</span></div>
+<div><input type="checkbox"  onchange="filter_on(this.id)" id="f_2" class="cheak_box_form" checked><span class="span_ch_filter">одежда</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_3" class="cheak_box_form" checked><span class="span_ch_filter">жилье</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_4" class="cheak_box_form" checked><span class="span_ch_filter">оброзование</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_5" class="cheak_box_form" checked><span class="span_ch_filter">мобильная помощь</span></div>  
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_6" class="cheak_box_form" checked><span class="span_ch_filter">трудоустройство</span></div>  
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_7" class="cheak_box_form" checked><span class="span_ch_filter">сан. обработка</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_8" class="cheak_box_form" checked><span class="span_ch_filter">возвращение домой</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_9" class="cheak_box_form" checked><span class="span_ch_filter">консультация</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_10" class="cheak_box_form" checked><span class="span_ch_filter">востоновление док.</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_11" class="cheak_box_form" checked><span class="span_ch_filter">помощь людям с ВИЧ</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_12" class="cheak_box_form" checked><span class="span_ch_filter">кризисный центр для женщин</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_13" class="cheak_box_form" checked><span class="span_ch_filter">доступ к интернету</span></div>
+
+<div><input type="checkbox" onchange="filter_on(this.id)" id="paid" class="cheak_box_form" checked><span class="span_ch_filter">платные</span></div>
+</div> 
+
+
+</div> 
+
+</body>
+</html>
+ 

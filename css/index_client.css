@@ -1,0 +1,195 @@
+
+ body{
+    background-color: #000;
+ }
+ul{
+
+list-style-image: none;
+list-style: none;
+list-style-type: none;
+
+}
+
+img{
+
+	 
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.logo{
+width: 250px;
+margin-left: 10px;
+margin-top:10px;
+margin-right: 10px;
+
+
+} 
+
+.map{
+width: 100%; height: 100%;	
+ 
+position: absolute;
+left: 0px;
+top: 0px;
+z-index: 0;
+} 
+
+ 
+.logo_bal{
+font-weight: bolder;
+font-size: 13pt;
+ margin-bottom: 10px; 
+} 
+
+.name_bal{
+font-weight: bold;
+ 
+} 
+
+.detail_bal{
+ text-align:justify;
+ 
+} 
+
+ 
+
+.sub_label_bal{
+font-weight: bold;
+margin-top: 10px; 
+} 
+
+.sub_label_form{
+font-weight: bold;
+margin-top: 10px; 
+
+} 
+
+ 
+
+
+.select_form{
+margin-top: 10px;
+ 
+}
+
+.form_status{
+font-weight: bolder;
+
+
+}
+ 
+
+.sub_change_box{
+font-weight: normal;
+margin-bottom: 10px; 
+ 
+}
+
+.text_input_form_contact{
+margin-top: 5px;
+width: 320px;
+margin-bottom: 10px;
+
+}
+
+
+
+.filter_div{
+width: 270px;
+height: 450px; 
+font: 12pt sans-serif;  
+}
+
+
+.btn{
+margin-left: 10px;
+margin-right: -10px;
+background-color: #759b3a;
+height: 30px; width: 132px;
+margin-top: 10px; 
+border-style: solid;
+border-width:3px;
+border-color: #759b3a; 
+
+ color:#fff; 
+}
+
+
+.rrr{
+position: fixed;
+left: 0px;
+top: 0px; 
+z-index: 10;
+width: 10px;
+ background-color: #000;
+height: 500px; 
+ visibility: hidden;
+
+ 
+}
+
+
+.left_menu_div{
+box-shadow: 0 0 10px rgba(122,122,122,0.5);
+position: fixed;
+left: 0px;
+top: 0px;
+height: 100%;
+width: 300px;
+background-color: #fff;
+ 
+overflow-y:scroll;
+
+}
+
+.cheak_box_form {
+margin-top: 11px;
+margin-left: 13px;
+}
+
+.span_ch_filter{
+color: #7c8081;
+
+}
+
+.cheak_box_form:checked + .span_ch_filter{
+color: #000;
+
+}
+
+.select_reion_css{
+
+width: 270px;
+margin-top:10px;
+margin-left: 10px;
+ border-style: solid;
+border-width:2px;
+border-color: #759b3a; 
+}
+ 
+.view_mark_list_css{
+position: fixed;
+left: 0px; top: 0px;
+height: 100%;
+width: 100%;
+background-color: #fff;
+visibility: hidden;
+overflow-y: scroll;
+ 
+}
+
+.card_mark{ 
+ 
+border-style:none;
+margin-top: 15px; 
+max-width: 250px;
+text-align:justify;
+ 
+}
+
+
+
+ 
+
+ 
