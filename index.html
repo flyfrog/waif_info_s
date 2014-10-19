@@ -284,7 +284,15 @@ region_select_control();
 
 
 $(window).resize(function(){
- position_normalize();
+position_normalize();
+
+
+waif.h_ = $(window).height();
+waif.w_ = $(window).width(); 
+redisign_();
+
+
+
 });
  
 
@@ -319,7 +327,7 @@ d("left_menu").style.overflowY = "hidden";
 <input type="button" id="list_btn" value="Показать списком" onclick="view_box_control()" class="btn"/>
 
 <div  class="filter_div">
-<div class="rrr"></div>
+ 
 
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_1" class="cheak_box_form" checked><span class="span_ch_filter">питание</span></div>
 <div><input type="checkbox"  onchange="filter_on(this.id)" id="f_2" class="cheak_box_form" checked><span class="span_ch_filter">одежда</span></div>
@@ -338,7 +346,13 @@ d("left_menu").style.overflowY = "hidden";
 <div><input type="checkbox" onchange="filter_on(this.id)" id="paid" class="cheak_box_form" checked><span class="span_ch_filter">платные</span></div>
 </div> 
 
+<div class="autor_css">
+ 
+Создано при поддержки <a href="http://te-st.ru">теплицы социальных технологий.</a>
+ 
+Разработчик системы <a href="http://vk.com/fly_f">Владимир Калугин</a>.
 
+<div/>
 </div> 
 
 </body>

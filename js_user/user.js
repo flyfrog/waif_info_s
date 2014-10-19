@@ -145,7 +145,7 @@ function load_mark(pair){
 
 if(waif.region_load.length<82 ){ // если уже не загружено
 
-
+  alert(pair);
 var data_ = 'region_='+waif.region; 
 $.ajax({
 
@@ -161,6 +161,7 @@ $.ajax({
 if(data!="нет записей"){
  //alert(data); 
   console.log("******************");
+
 var garbage_ar = data.split("$~*~$");
  
 for(var i=0;i<garbage_ar.length;i++){

@@ -1,11 +1,10 @@
 <?php
  
-$hostname = "p274368.mysql.ihc.ru"; 
-$username = "p274368_p274368f"; 
-$password = "c7N3jq"; 
-$dbName = "p274368_p274368f"; 
+include "rule.php";
+
+
 $userstable = "body"; 
-$regionstable = "regions"; 
+ 
  
  
  //echo   $_POST['id_'] . '|  |'. $_POST['region_']."|    |".$_POST['body_'];
@@ -18,14 +17,14 @@ $regionstable = "regions";
  mysql_select_db($dbName) or die(mysql_error());  
  
  
-$query = "SELECT * FROM  $userstable WHERE   status='0' AND hidden_flag='0' " ;//выберем все с базы 
+$query = "SELECT * FROM  $userstable WHERE   status='0' AND hidden_flag='0'   " ;//выберем все с базы 
  
  
 $res_body = mysql_query($query) or die(mysql_error()); //проверим если совпадения
 $number_body = mysql_num_rows($res_body); // сколько резльтатов пришло
  
-
-if($number_body>=1){
+//echo gettype($_POST['number_']) . "   " . gettype($number_body);
+if($number_body>$_POST['number_']){
   $key=0;
   $arr_json = array();
 
@@ -36,6 +35,10 @@ if($number_body>=1){
 
 echo    implode("$~*~$",$arr_json); 
 mysql_close();
+}else{
+echo "not_old";
+
+}
 
  
 

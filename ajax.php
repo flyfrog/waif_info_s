@@ -2,10 +2,11 @@
  
 
  session_start();
-$hostname = "localhost"; 
-$username = "root"; 
-$password = "frog555"; 
-$dbName = "test"; 
+//include "rule.php";
+
+
+
+
 $userstable = "body"; 
 $region = "regions"; 
 $user = $_SESSION["login"];
@@ -80,7 +81,8 @@ mysql_close();
 
 }else{
  $json_string =  json_decode($_POST["body_"]);
-
+//echo  json_encode($json_string,JSON_UNESCAPED_UNICODE)  ;
+echo phpversion();
 $kill_him = array('"',"'","\n","\r");//ключи для замены в данных от клиента
 $kill_then = array('&quot;',"&quot;","<br>","<br>");//ключи для замены в данных от клиента
 
@@ -99,14 +101,15 @@ $json_string->delite_flag  = str_replace( $kill_him,$kill_then,$json_string->del
 $json_string->region  = str_replace( $kill_him,$kill_then,$json_string->region);
 $hidden_flag = $json_string->hidden_flag;
 $json_string = json_encode($json_string,JSON_UNESCAPED_UNICODE);
- 
+//echo $json_string; 
 
 $query = "INSERT INTO $userstable SET id_mark='".$_POST['id_']."',id_region='".$region_id."', user_name='".$user."',  json_body='".$json_string."', hidden_flag='".$hidden_flag ."'";
 /* Выполняем запрос. Если произойдет ошибка - вывести ее. */
  mysql_query($query) or die( mysql_error());
 /* Закрываем соединение */
 mysql_close();
-echo "успешно";
+ 
+//echo "успешно создал";
 
 
 }

@@ -1,10 +1,13 @@
 <?php
  
-$hostname = "localhost"; 
-$username = "root"; 
-$password = "frog555"; 
-$dbName = "test"; 
+//$hostname = "localhost"; 
+//$username = "root"; 
+//$password = "frog555"; 
+//$dbName = "test"; 
+include "rule.php";
+
 $userstable = "body"; 
+
 $regionstable = "regions"; 
  
  

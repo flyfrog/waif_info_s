@@ -1,7 +1,11 @@
 
  body{
-    background-color: #000;
+    background-color: #fff;
+
  }
+
+ 
+
 ul{
 
 list-style-image: none;
@@ -97,8 +101,9 @@ margin-bottom: 10px;
 
 .filter_div{
 width: 270px;
-height: 450px; 
+height: 410px; 
 font: 12pt sans-serif;  
+ 
 }
 
 
@@ -188,7 +193,24 @@ text-align:justify;
  
 }
 
+.autor_css{
+position: relative;
+left: 0px; bottom: 0px;
+ 
+font-size: 10pt;
+ 
+padding-left:10px;
+padding-right: 10px; 
+margin-bottom: 10px;
 
+color:#999;
+}
+
+a{
+
+	text-decoration: none; 
+}
+ 
 
  
 

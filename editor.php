@@ -1,11 +1,11 @@
 <?php
 session_start();
 if(isset($_SESSION["is_auth"])==false){
-   header('Location: http://localhost/morda/ad.php');
+   header('Location:  ad.php');
     exit;
 }else{//все нормально ссесия запущена, осталась проверка
 if($_SESSION["is_auth"]==false){
-    header('Location: http://localhost/morda/ad.php');
+    header('Location:  ad.php');
     exit;
 }else{  /*  выодим редактор*/ ?>
 
@@ -98,7 +98,7 @@ close_list_mark();
 
 
  
- 
+ /*
 function fill_clear_form(){
  
 var mark = waif.mark[return_mark()];// создадим простой экземпляр для обращения
@@ -123,7 +123,7 @@ if(waif.myname==mark.myname||waif.myname=="admin")
 d("clear_form").style.visibility="visible";
 
 }//end fill_clear_form
-
+*/
  
 //***********************************************************************************
 function build_list_mark(){
@@ -244,8 +244,7 @@ if(mark.delite_flag!=undefined){
   }
 }//на удаление кнопка востановить
 
-d("YMapsID").style.width = (waif.w_-400)+"px";
-d("YMapsID").style.left =  400 +"px";
+map_size_minimaze();
 d("form_container").style.visibility = "visible";//откроем форму и покажем миру
 }//end fill_edir_form
 //***********************************************************************************
@@ -275,6 +274,15 @@ if(find(waif.complex_mark,x)!=-1){//комплексные услуги
 d("sub_selected").innerHTML = str;
 }//end change ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  
+function map_size_minimaze(){
+d("YMapsID").style.width = (waif.w_-400)+"px";
+d("YMapsID").style.left =  400 +"px";
+
+}//end map_size_minimaze
+
+
+
+
 function find(array, value) {for(var i=0; i<array.length; i++) {if (array[i] == value&&array.length!=-1) return i;}return -1;}
 //find поиск по массиву 
 
@@ -367,12 +375,13 @@ function save_in_server(mark){//отправка ajax
 var data_ = 'id_='+mark.id+"&";
 data_ += 'region_='+mark.region+"&"; 
 data_ += 'body_='+build_json_body(mark);
+ 
 $.ajax({
   type: 'POST',
   url: 'ajax.php',
   data: data_,
   success: function(data){
-  $('#cons').html(data);
+ alert(data);
  
   }
 });
@@ -385,6 +394,7 @@ var json_mark = new Object;
 json_mark.id = mark.id;
 json_mark.types =  mark.types;
  
+json_mark.detail = mark.detail;   
 json_mark.names = mark.names;  
 json_mark.region = mark.region;  
 json_mark.phone = mark.phone;  
@@ -392,10 +402,10 @@ json_mark.site = mark.site;
 json_mark.e_mail = mark.e_mail;  
 json_mark.coord = mark.coord;  
 json_mark.times = mark.times;  
-json_mark.myname = json_mark.detail = mark.detail;  
+json_mark.myname =  waif.myname;  
 json_mark.adress = mark.adress;  
 json_mark.hidden_flag = mark.hidden_flag;
-json_mark.delite = mark.delite_flag;
+json_mark.delite_flag = mark.delite_flag;
 mark.myname;
 // -----------------
 json_mark.p_duty = mark.p_duty; // платно или бесплатно

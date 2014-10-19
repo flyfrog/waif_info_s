@@ -15,6 +15,7 @@ class AuthClass {
     private $hostname = "localhost"; 
     private $username = "root"; 
     private $password_db = "frog555";  // для таблицы
+    
     private $dbName = "test"; 
 
 /* Таблица MySQL, в которой хранятся данные */ 
@@ -110,7 +111,7 @@ if (isset($_GET["is_exit"])) { //Если нажата кнопка выхода
 }
  
  if ($auth->isAuth()) { // Если пользователь авторизован, приветствуем:  
-   header('Location: http://localhost/morda/editor.php');
+   header('Location:  editor.php');
     exit;
  
 }

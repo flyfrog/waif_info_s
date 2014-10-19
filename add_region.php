@@ -1,11 +1,7 @@
 <?php
  
 
- 
-$hostname = "localhost"; 
-$username = "root"; 
-$password = "frog555"; 
-$dbName = "test"; 
+include "rule.php";
 $userstable = "regions"; 
 
  
