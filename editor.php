@@ -381,8 +381,8 @@ $.ajax({
   url: 'ajax.php',
   data: data_,
   success: function(data){
- alert(data);
- 
+ //alert(data);
+  popup.open("<h3>" + data + "</h3>", 'html' );
   }
 });
 
@@ -491,20 +491,15 @@ return chek_out;
 }//form_chek
 
 function close_clear_form(){
-
-
 d("clear_form").style.visibility = "hidden";
 d("clear_form_edit_btn").style.visibility = "hidden";
-
 }//end colse_edit_form
 
 
 
 function map_size_normalize(){
-
  d("YMapsID").style.width = (waif.w_ )+"px";
  d("YMapsID").style.left =  0 +"px";
-
 }
 
 function clear_edit_form(){
@@ -523,6 +518,19 @@ var r = waif.mark[return_mark()];
 r.balloon.close();
 }
  
+
+function help_view(){
+var str = "<h3>Справка</h3>";
+str += "Для создания метки нажмите кнопку 'Создать метку'. Затем кликните по месту на карте где находится это место.";
+str += "Заполните поля, в появившийся форме. Если вы не можете заполнить какое либо поле, напр. у организации нет тел. или сайта. просто впишите вопросительный знак - ?. Тогда поле не будет отображаться для пользователей. <br>";
+str += "Кнопка 'Список' показывает метки списком, и краткую информацию по ним. Если кликнуть по метки в списке, карта переместит фокус на нее. Зеленым выделены метки созданные вами. Серым другими пользователями. <br>";
+str += "Кнопка 'Загрузить все' загрузит всю базу меток по России. До этого загружаются метки только с тех регионов которые вы просматриваете.<br>";
+str += "При возникновении трудностей свяжитесь с администратором.";
+popup.open( str, 'html' );
+
+
+
+}//help_view 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -569,7 +577,7 @@ if(waif.virtual_icon_flag==1){d("virtual_icon").style.visibility="hidden"; waif.
 <input type="button" value="создать метку" onclick="start_create_mark()" class="btn_create_mark"/>
 <input type="button" value="список" onclick="build_list_mark()" class="btn_help"/>
 <input type="button" value="загрузить все" onclick="load_all()" class="btn_help"/>
-<input type="button" value="справка" onclick=" " class="btn_help"/>
+<input type="button" value="справка" onclick="help_view()" class="btn_help"/>
  
 </div>
 

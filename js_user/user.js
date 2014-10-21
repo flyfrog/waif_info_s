@@ -145,7 +145,7 @@ function load_mark(pair){
 
 if(waif.region_load.length<82 ){ // если уже не загружено
 
-  alert(pair);
+  
 var data_ = 'region_='+waif.region; 
 $.ajax({
 

@@ -4,7 +4,11 @@ region_list = '["Республика Адыгея","Майкоп","Респуб
 function region_select_html_str(){ 
 // возвращает html для select с регионами 
 //где value индекс в массиве region list
+
+
 var sst = "<select id='region_list' class='select_reion_css'>";
+sst += "<option value='p1'>Москва</option>";
+sst += "<option value='p2'>Санкт-Петербург</option>";
 for(var i=0;i<waif.region_ar.length-1;i+=2){
 sst += "<option value='"+i+"'>";
  sst+=waif.region_ar[i]; 

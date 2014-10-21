@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     
-    <title>Примеры. Удаление карты с веб-страницы.</title>
+    <title>Карта для бездомных</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link href="css/index_client.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" media="all" rel="stylesheet" type="text/css"/> 
@@ -268,6 +268,7 @@ document.getElementById("region_list").onchange = function (){
 //при селекте загрузим нужный регион
 
 waif.region =   d("region_list").options[this.selectedIndex].text;
+ 
 waif.region_pair =  return_region_pair(waif.region);
 load_control();
 
@@ -300,7 +301,7 @@ redisign_();
   function position_normalize(){
 waif.h_ = $(window).height();
 waif.w_ = $(window).width(); 
-if(waif.h_<500){
+if(waif.h_<620){
 d("left_menu").style.overflowY = "scroll";
  
 }else{
@@ -332,13 +333,13 @@ d("left_menu").style.overflowY = "hidden";
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_1" class="cheak_box_form" checked><span class="span_ch_filter">питание</span></div>
 <div><input type="checkbox"  onchange="filter_on(this.id)" id="f_2" class="cheak_box_form" checked><span class="span_ch_filter">одежда</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_3" class="cheak_box_form" checked><span class="span_ch_filter">жилье</span></div>
-<div><input type="checkbox" onchange="filter_on(this.id)" id="f_4" class="cheak_box_form" checked><span class="span_ch_filter">оброзование</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_4" class="cheak_box_form" checked><span class="span_ch_filter">образование</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_5" class="cheak_box_form" checked><span class="span_ch_filter">мобильная помощь</span></div>  
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_6" class="cheak_box_form" checked><span class="span_ch_filter">трудоустройство</span></div>  
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_7" class="cheak_box_form" checked><span class="span_ch_filter">сан. обработка</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_8" class="cheak_box_form" checked><span class="span_ch_filter">возвращение домой</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_9" class="cheak_box_form" checked><span class="span_ch_filter">консультация</span></div>
-<div><input type="checkbox" onchange="filter_on(this.id)" id="f_10" class="cheak_box_form" checked><span class="span_ch_filter">востоновление док.</span></div>
+<div><input type="checkbox" onchange="filter_on(this.id)" id="f_10" class="cheak_box_form" checked><span class="span_ch_filter">восстановление документов</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_11" class="cheak_box_form" checked><span class="span_ch_filter">помощь людям с ВИЧ</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_12" class="cheak_box_form" checked><span class="span_ch_filter">кризисный центр для женщин</span></div>
 <div><input type="checkbox" onchange="filter_on(this.id)" id="f_13" class="cheak_box_form" checked><span class="span_ch_filter">доступ к интернету</span></div>
@@ -348,13 +349,19 @@ d("left_menu").style.overflowY = "hidden";
 
 <div class="autor_css">
  
-Создано при поддержки <a href="http://te-st.ru">теплицы социальных технологий.</a>
+Создано при поддержке <a href="http://te-st.ru">Теплицы социальных технологий.</a>
  
 Разработчик системы <a href="http://vk.com/fly_f">Владимир Калугин</a>.
 
-<div/>
-</div> 
+</div>
 
+
+</div> 
+<div class="google_play" >
+ <a href="https://play.google.com/store/apps/details?id=xdk.sample.helloworld">
+<img   src="img/img_play.jpg" class="google_play_img"  />
+</a>
+</div>
 </body>
 </html>
  

@@ -24,7 +24,8 @@ $res_body = mysql_query($query) or die(mysql_error()); //проверим есл
 $number_body = mysql_num_rows($res_body); // сколько резльтатов пришло
  
 //echo gettype($_POST['number_']) . "   " . gettype($number_body);
-if($number_body>$_POST['number_']){
+$actual = $number_body-$_POST['number_'];
+if($actual>5){
   $key=0;
   $arr_json = array();
 

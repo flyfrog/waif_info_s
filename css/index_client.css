@@ -212,6 +212,25 @@ a{
 }
  
 
+ .google_play{
+position: absolute;
+left: 320px; bottom: 0px;
+background-color: #fff; 
+padding-top:10px;
+padding-left:10px;
+padding-right: 15px; 
+box-shadow: 0 0 10px rgba(122,122,122,0.5);
+opacity: 0.5;
+}
+
+.google_play_img {
  
+width: 120px; 
+margin-bottom: 10px;
+}
+
+ .google_play:hover{
+opacity: 1;
+ }
 
  
