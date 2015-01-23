@@ -2,7 +2,7 @@
  
 
  session_start();
-//include "rule.php";
+include "rule.php";
 
 
 
